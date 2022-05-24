@@ -10,7 +10,9 @@ class WeatherServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->publishes([\dirname(__DIR__ . ('/config/weather.php')) => config_path('weather.php')]);
+        $this->publishes([
+            \dirname(__DIR__) . ('/config/weather.php') => config_path('weather.php')
+        ], 'laravel-weather-config');
     }
 
     public function register()
