@@ -20,7 +20,7 @@
                 "Layoute\\LaravelWeather\\WeatherServiceProvider"
             ],
             "aliases": {
-                "PluginTest": "Layoute\\LaravelWeather\\LaravelWeatherFacade"
+                "LaravelWeather": "Layoute\\LaravelWeather\\LaravelWeatherFacade"
             }
         }
     },
