@@ -4,16 +4,23 @@ namespace Layoute\LaravelWeather;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Support\Facades\Log;
 use Layoute\LaravelWeather\Exception\APIKeyNotFoundException;
+use Layoute\LaravelWeather\Exception\CityNotFoundException;
 
 class LaravelWeather
 {
     protected $config;
+    protected $http;
+    protected $env;
 
+    /**
+     * @throws APIKeyNotFoundException
+     */
     public function config(array $conf): LaravelWeather
     {
         $this->config = $conf;
+        $this->http = new Client;
+        $this->env = $this->getEnv();
         return $this;
     }
 
@@ -47,25 +54,53 @@ class LaravelWeather
 
     /**
      * Get real-time weather info for specified city
-     * @param string $locationId location id for city
+     * @param string $city_name
      * @param string $lang language setting for response
      * @return string
+     * @throws APIKeyNotFoundException
+     * @throws GuzzleException
+     * @throws CityNotFoundException
      */
-    public function queryWeatherForCity(string $locationId, string $lang = "zh"): string
+    public function getWeatherForCityByName(string $city_name, string $lang = "zh"): string
     {
-
-        return "";
+        $city = $this->getLocationIdByName($city_name);
+        if (empty($city)) {
+            throw new CityNotFoundException();
+        } else {
+            $locations = json_decode($city, true)['location'];
+            if (empty($locations)) {
+                throw new CityNotFoundException();
+            } else {
+                $endpoint = $this->env['api_base_url'] . 'weather/now';
+                $resp = $this->http->get($endpoint, [
+                    'query' => [
+                        'location' => $locations[0]['id'],
+                        'key' => $this->getAppKey()
+                    ]
+                ]);
+                return $resp->getBody();
+            }
+        }
     }
 
     /**
      * @throws APIKeyNotFoundException
+     * @throws GuzzleException
      */
     public function getLocationIdByName(string $city_name, string $adm = null, string $range = "world", string $lang = "zh"): string
     {
-        $env = $this->getEnv();
         if (isset($this->config)) {
-            $endpoint = $env['geo_base_url'] . '/city/lookup?location=' . $city_name . '&key=' . $this->getAppKey() . '&adm=' . $adm . '&range=' . $range . '&lang=' . $lang;
-            return "";
+            $endpoint = $this->env['geo_base_url'] . '/city/lookup';
+            $response = $this->http->get($endpoint, [
+                'query' => [
+                    'location' => $city_name,
+                    'key' => $this->getAppKey(),
+                    'adm' => $adm,
+                    'range' => $range,
+                    'lang' => $lang,
+                ]
+            ]);
+            return $response->getBody();
         } else {
             throw new APIKeyNotFoundException();
         }
@@ -77,13 +112,18 @@ class LaravelWeather
      */
     public function getLocationIdByCoordinate(float $lat, float $lng, string $adm = null, string $range = "world", string $lang = "zh"): string
     {
-        $env = $this->getEnv();
         if (isset($this->config)) {
-            $endpoint = $env['geo_base_url'] . '/city/lookup?location=' . $lat . '.' . $lng . '&key=' . $this->getAppKey() . '&adm=' . $adm . '&range=' . $range . '&lang=' . $lang;
-            $http = new Client;
-            $response = $http->get($endpoint);
-            Log::info($response->getBody());
-            return "";
+            $endpoint = $this->env['geo_base_url'] . '/city/lookup';
+            $response = $this->http->get($endpoint, [
+                'query' => [
+                    'location' => $lat . ',' . $lng,
+                    'key' => $this->getAppKey(),
+                    'adm' => $adm,
+                    'range' => $range,
+                    'lang' => $lang,
+                ]
+            ]);
+            return $response->getBody();
         } else {
             throw new APIKeyNotFoundException();
         }
