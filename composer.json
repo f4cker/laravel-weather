@@ -1,0 +1,19 @@
+{
+    "name": "layoute/laravel-weather",
+    "description": "Laravel-Weather let you get weather info from qweather",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Layoute\\LaravelWeather\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Layoute",
+            "email": "qingfengroot@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
