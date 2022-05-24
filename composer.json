@@ -14,6 +14,17 @@
             "email": "qingfengroot@163.com"
         }
     ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Layoute\\LaravelWeather\\WeatherServiceProvider"
+            ],
+            "aliases": {
+                "PluginTest": "Layoute\\LaravelWeather\\LaravelWeatherFacade"
+            }
+        }
+    },
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+    }
 }
