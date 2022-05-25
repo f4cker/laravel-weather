@@ -1,4 +1,4 @@
-<h1 align="center">Laravel Follow</h1>
+<h1 align="center">Laravel Weather</h1>
 
 <p align="center">Weather info system for Laravel.</p>
 
@@ -24,8 +24,8 @@ Many thanks to Jetbrains for kindly providing a license for me to work on this a
 
 You can contribute in one of three ways:
 
-1. File bug reports using the [issue tracker](https://github.com/overtrue/laravel-follow/issues).
-2. Answer questions or fix bugs on the [issue tracker](https://github.com/overtrue/laravel-follow/issues).
+1. File bug reports using the [issue tracker](https://github.com/f4cker/laravel-weather/issues).
+2. Answer questions or fix bugs on the [issue tracker](https://github.com/f4cker/laravel-weather/issues).
 3. Contribute new features or update the wiki.
 
 _The code contribution process is not very formal. You just need to make sure that you follow the PSR-0, PSR-1, and
