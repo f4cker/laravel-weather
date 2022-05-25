@@ -7,8 +7,7 @@ use Layoute\LaravelWeather\Weather;
 
 /**
  * @method static Weather config(array $conf)
- * @method static string getWeatherByName(string $city_name, string $lang = "zh")
- * @method static string getWeatherByCoordinate(float $lat, float $lng, string $lang = "zh")
+ * @method static string getRealTimeWeather(array $city)
  *
  * @see Weather
  */
