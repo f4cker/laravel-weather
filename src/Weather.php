@@ -4,10 +4,10 @@ namespace Layoute\LaravelWeather;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Layoute\LaravelWeather\Exception\APIKeyNotFoundException;
-use Layoute\LaravelWeather\Exception\CityNotFoundException;
+use Layoute\LaravelWeather\Exceptions\APIKeyNotFoundException;
+use Layoute\LaravelWeather\Exceptions\CityNotFoundException;
 
-class LaravelWeather
+class Weather
 {
     protected $config;
     protected $http;
@@ -16,7 +16,7 @@ class LaravelWeather
     /**
      * @throws APIKeyNotFoundException
      */
-    public function config(array $conf): LaravelWeather
+    public function config(array $conf): Weather
     {
         $this->config = $conf;
         $this->http = new Client;

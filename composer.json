@@ -20,7 +20,7 @@
                 "Layoute\\LaravelWeather\\WeatherServiceProvider"
             ],
             "aliases": {
-                "LaravelWeather": "Layoute\\LaravelWeather\\LaravelWeatherFacade"
+                "LaravelWeather": "Layoute\\LaravelWeather\\Facades\\LaravelWeather"
             }
         }
     },

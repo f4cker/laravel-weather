@@ -1,6 +1,6 @@
 <?php
 
-namespace Layoute\LaravelWeather\Exception;
+namespace Layoute\LaravelWeather\Exceptions;
 
 use Exception;
 use Illuminate\Http\JsonResponse;

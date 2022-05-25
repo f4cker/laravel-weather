@@ -17,8 +17,8 @@ class WeatherServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(LaravelWeather::class, function () {
-            return new LaravelWeather();
+        $this->app->singleton('weather', function () {
+            return new Weather();
         });
     }
 }
