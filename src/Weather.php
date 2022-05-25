@@ -61,9 +61,34 @@ class Weather
      * @throws GuzzleException
      * @throws CityNotFoundException
      */
-    public function getWeatherForCityByName(string $city_name, string $lang = "zh"): string
+    public function getWeatherByName(string $city_name, string $lang = "zh"): string
     {
         $city = $this->getLocationIdByName($city_name);
+        return $this->getRealTimeWeather($city);
+    }
+
+    /**
+     * Get real-time weather info for specified city
+     * @param float $lat
+     * @param float $lng
+     * @param string $lang language setting for response
+     * @return string
+     * @throws APIKeyNotFoundException
+     * @throws GuzzleException
+     * @throws CityNotFoundException
+     */
+    public function getWeatherByCoordinate(float $lat, float $lng, string $lang = "zh"): string
+    {
+        $city = $this->getLocationIdByCoordinate($lat, $lng);
+        return $this->getRealTimeWeather($city);
+    }
+
+    /**
+     * @throws APIKeyNotFoundException
+     * @throws CityNotFoundException
+     */
+    private function getRealTimeWeather(string $city): string
+    {
         if (empty($city)) {
             throw new CityNotFoundException();
         } else {
